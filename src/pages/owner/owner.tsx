@@ -20,6 +20,8 @@ function Owner() {
   const statusRef = useRef<HTMLInputElement>(null);
   const transactionRef = useRef<HTMLInputElement>(null);
   const transactEmailRef = useRef<HTMLInputElement>(null);
+  const blockEmailRef = useRef<HTMLInputElement>(null);
+  const blockStatusRef = useRef<HTMLInputElement>(null);
 
   const [request, reset, isLoading, isError, errMsg, result] = useRequest();
 
@@ -109,6 +111,32 @@ function Owner() {
     });
   }
 
+  function updateUserBlockStatus(e: React.FormEvent) {
+    e.preventDefault();
+
+    let status = blockStatusRef.current?.value;
+    const emailAddress = blockEmailRef.current?.value;
+
+    if (!status || !emailAddress || !["1", "2"].includes(status)) return;
+
+    switch (status) {
+      case "1":
+        status = "Block";
+        break;
+      case "2":
+        status = "Unblock";
+        break;
+      default:
+        return;
+    }
+
+    request(`${BASE_URL}/user/update-block-status`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      body: { emailAddress, status },
+    });
+  }
+
   return (
     <>
       {dialogToShow && dialogToShow}
@@ -163,6 +191,29 @@ function Owner() {
             ref={statusRef}
             icon={iconPending}
             placeholder="1 for Pending and 2 for Success"
+            type="number"
+            required
+          />
+        </Form>
+
+        <Form
+          formSubmitHandler={updateUserBlockStatus}
+          isLoading={isLoading}
+          buttonText="(Un)Block status"
+        >
+          <p>Change Block Status</p>
+          <InputBox
+            icon={iconEmail}
+            ref={blockEmailRef}
+            placeholder="Email address"
+            type="email"
+            required
+          />
+
+          <InputBox
+            ref={blockStatusRef}
+            icon={iconPending}
+            placeholder="1 to Block and 2 to Unblock"
             type="number"
             required
           />
