@@ -5,8 +5,8 @@ export const BASE_URL = process.env.BASE_URL || "https://orbitpay.onrender.com";
 export const APP_NAME = "ORBITPAY";
 export const APP_EMAIL_ADDR = "info@orbitpay.com";
 export const OWNER_EMAIL = "owner@app.com";
-export const APP_PHONE_NUM = "+91 2308 455 789";
-export const APP_ADDR = "Area 3, Fasasi Lane, Lagos Isolo Bus stop.";
+export const APP_PHONE_NUM = "+10 1 718 222 2222";
+export const APP_ADDR = "New York City";
 export const NAV = [
   { nav: "Home", to: "/" },
   { nav: "Features", to: "/features" },
