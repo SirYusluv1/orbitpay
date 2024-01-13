@@ -38,7 +38,7 @@ function Footer() {
       </div>
 
       <p className={styles["footer__copy"]}>
-        &copy; by SirYusluv. All right reserved.
+        &copy; by Unitypaybanks. All right reserved.
       </p>
     </footer>
   );
